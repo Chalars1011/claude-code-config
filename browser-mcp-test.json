@@ -1,0 +1,1 @@
+{"mcpServers":{"browser":{"command":"npx","args":["@anthropic-ai/mcp-browser@latest","--","--executable-path=C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"]}}}

@@ -1,0 +1,461 @@
+{
+ "角色": "噬影 (silent)",
+ "数量": 91,
+ "卡牌": [
+  {
+   "id": "abrasive",
+   "name": "磨蚀",
+   "status": "未改"
+  },
+  {
+   "id": "accelerant",
+   "name": "毒媒",
+   "status": "未改"
+  },
+  {
+   "id": "accuracy",
+   "name": "夺命精准",
+   "status": "未改"
+  },
+  {
+   "id": "acrobatics",
+   "name": "诡步",
+   "status": "未改"
+  },
+  {
+   "id": "adrenaline",
+   "name": "濒死激素",
+   "status": "未改"
+  },
+  {
+   "id": "afterimage",
+   "name": "残影",
+   "status": "未改"
+  },
+  {
+   "id": "anticipate",
+   "name": "不祥预感",
+   "status": "未改"
+  },
+  {
+   "id": "assassinate",
+   "name": "刺杀",
+   "status": "未改"
+  },
+  {
+   "id": "backflip",
+   "name": "翻跃",
+   "status": "未改"
+  },
+  {
+   "id": "backstab",
+   "name": "背刺暗杀",
+   "status": "未改"
+  },
+  {
+   "id": "blackened_blade",
+   "name": "?",
+   "status": "未改"
+  },
+  {
+   "id": "blade_dance",
+   "name": "刃舞",
+   "status": "未改"
+  },
+  {
+   "id": "blade_of_ink",
+   "name": "墨血之刃",
+   "status": "未改"
+  },
+  {
+   "id": "blur",
+   "name": "残影",
+   "status": "未改"
+  },
+  {
+   "id": "bouncing_flask",
+   "name": "腐蚀飞瓶",
+   "status": "未改"
+  },
+  {
+   "id": "bubble_bubble",
+   "name": "沸腾腐液",
+   "status": "未改"
+  },
+  {
+   "id": "bullet_time",
+   "name": "死寂时刻",
+   "status": "未改"
+  },
+  {
+   "id": "burst",
+   "name": "连环爆发",
+   "status": "未改"
+  },
+  {
+   "id": "calculated_gamble",
+   "name": "亡命赌注",
+   "status": "未改"
+  },
+  {
+   "id": "cloak_and_dagger",
+   "name": "暗影潜行",
+   "status": "未改"
+  },
+  {
+   "id": "corpse_explosion",
+   "name": "?",
+   "status": "未改"
+  },
+  {
+   "id": "corrosive_wave",
+   "name": "腐蚀波",
+   "status": "未改"
+  },
+  {
+   "id": "dagger_spray",
+   "name": "匕首雨",
+   "status": "未改"
+  },
+  {
+   "id": "dagger_throw",
+   "name": "掷匕",
+   "status": "未改"
+  },
+  {
+   "id": "dash",
+   "name": "猛袭",
+   "status": "未改"
+  },
+  {
+   "id": "deadly_poison",
+   "name": "夺命毒",
+   "status": "未改"
+  },
+  {
+   "id": "defend_silent",
+   "name": "躲藏",
+   "status": "未改"
+  },
+  {
+   "id": "deflect",
+   "name": "偏折",
+   "status": "未改"
+  },
+  {
+   "id": "dodge_and_roll",
+   "name": "翻滚闪避",
+   "status": "未改"
+  },
+  {
+   "id": "echoing_slash",
+   "name": "回响斩击",
+   "status": "未改"
+  },
+  {
+   "id": "envenom",
+   "name": "淬毒",
+   "status": "未改"
+  },
+  {
+   "id": "escape_plan",
+   "name": "最后退路",
+   "status": "未改"
+  },
+  {
+   "id": "expertise",
+   "name": "专精",
+   "status": "未改"
+  },
+  {
+   "id": "expose",
+   "name": "暴露弱点",
+   "status": "未改"
+  },
+  {
+   "id": "fan_of_knives",
+   "name": "刀扇",
+   "status": "未改"
+  },
+  {
+   "id": "finisher",
+   "name": "了结",
+   "status": "未改"
+  },
+  {
+   "id": "flanking",
+   "name": "夹击",
+   "status": "未改"
+  },
+  {
+   "id": "flechettes",
+   "name": "骨镖雨",
+   "status": "未改"
+  },
+  {
+   "id": "flick_flack",
+   "name": "翻越撑击",
+   "status": "未改"
+  },
+  {
+   "id": "footwork",
+   "name": "暗步疾走",
+   "status": "未改"
+  },
+  {
+   "id": "grand_finale",
+   "name": "血色终幕",
+   "status": "未改"
+  },
+  {
+   "id": "hand_trick",
+   "name": "障目戏法",
+   "status": "未改"
+  },
+  {
+   "id": "haze",
+   "name": "迷雾",
+   "status": "未改"
+  },
+  {
+   "id": "hidden_daggers",
+   "name": "暗藏匕首",
+   "status": "未改"
+  },
+  {
+   "id": "infinite_blades",
+   "name": "无尽刀锋",
+   "status": "未改"
+  },
+  {
+   "id": "knife_trap",
+   "name": "利刃陷阱",
+   "status": "未改"
+  },
+  {
+   "id": "leading_strike",
+   "name": "先制打击",
+   "status": "未改"
+  },
+  {
+   "id": "leg_sweep",
+   "name": "扫腿",
+   "status": "未改"
+  },
+  {
+   "id": "malaise",
+   "name": "疫病缠身",
+   "status": "未改"
+  },
+  {
+   "id": "master_planner",
+   "name": "暗算",
+   "status": "未改"
+  },
+  {
+   "id": "memento_mori",
+   "name": "铭记死亡",
+   "status": "未改"
+  },
+  {
+   "id": "mirage",
+   "name": "蜃景",
+   "status": "未改"
+  },
+  {
+   "id": "murder",
+   "name": "谋杀",
+   "status": "未改"
+  },
+  {
+   "id": "neutralize",
+   "name": "割喉",
+   "status": "未改"
+  },
+  {
+   "id": "nightmare",
+   "name": "梦魇缠身",
+   "status": "未改"
+  },
+  {
+   "id": "noxious_fumes",
+   "name": "毒瘴弥漫",
+   "status": "未改"
+  },
+  {
+   "id": "outbreak",
+   "name": "毒性爆发",
+   "status": "未改"
+  },
+  {
+   "id": "phantom_blades",
+   "name": "幻影之刃",
+   "status": "未改"
+  },
+  {
+   "id": "piercing_wail",
+   "name": "刺耳哀嚎",
+   "status": "未改"
+  },
+  {
+   "id": "pinpoint",
+   "name": "精准瞄准",
+   "status": "未改"
+  },
+  {
+   "id": "poisoned_stab",
+   "name": "淬毒",
+   "status": "未改"
+  },
+  {
+   "id": "pounce",
+   "name": "猛扑",
+   "status": "未改"
+  },
+  {
+   "id": "precise_cut",
+   "name": "精准切割",
+   "status": "未改"
+  },
+  {
+   "id": "predator",
+   "name": "猎杀者",
+   "status": "未改"
+  },
+  {
+   "id": "prepared",
+   "name": "蓄势待发",
+   "status": "未改"
+  },
+  {
+   "id": "reflex",
+   "name": "本能反应",
+   "status": "未改"
+  },
+  {
+   "id": "ricochet",
+   "name": "弹跳",
+   "status": "未改"
+  },
+  {
+   "id": "scare",
+   "name": "恫吓",
+   "status": "未改"
+  },
+  {
+   "id": "serpent_form",
+   "name": "群蛇形态",
+   "status": "未改"
+  },
+  {
+   "id": "shadow_step",
+   "name": "暗影步",
+   "status": "未改"
+  },
+  {
+   "id": "shadowmeld",
+   "name": "融入暗影",
+   "status": "未改"
+  },
+  {
+   "id": "skewer",
+   "name": "穿心",
+   "status": "未改"
+  },
+  {
+   "id": "slice",
+   "name": "割裂",
+   "status": "未改"
+  },
+  {
+   "id": "snakebite",
+   "name": "蛇咬",
+   "status": "未改"
+  },
+  {
+   "id": "sneaky",
+   "name": "鬼祟",
+   "status": "未改"
+  },
+  {
+   "id": "speedster",
+   "name": "速行者",
+   "status": "未改"
+  },
+  {
+   "id": "storm_of_steel",
+   "name": "钢铁风暴",
+   "status": "未改"
+  },
+  {
+   "id": "strangle",
+   "name": "紧勒",
+   "status": "未改"
+  },
+  {
+   "id": "strike_silent",
+   "name": "暗袭",
+   "status": "未改"
+  },
+  {
+   "id": "sucker_punch",
+   "name": "阴招",
+   "status": "未改"
+  },
+  {
+   "id": "suppress",
+   "name": "压制",
+   "status": "未改"
+  },
+  {
+   "id": "survivor",
+   "name": "苟延残喘",
+   "status": "未改"
+  },
+  {
+   "id": "tactician",
+   "name": "暗策士",
+   "status": "未改"
+  },
+  {
+   "id": "the_gambit",
+   "name": "孤注一掷",
+   "status": "未改"
+  },
+  {
+   "id": "the_hunt",
+   "name": "猎杀",
+   "status": "未改"
+  },
+  {
+   "id": "tools_of_the_trade",
+   "name": "行刑工具",
+   "status": "未改"
+  },
+  {
+   "id": "tracking",
+   "name": "追踪",
+   "status": "未改"
+  },
+  {
+   "id": "untouchable",
+   "name": "触不可及",
+   "status": "未改"
+  },
+  {
+   "id": "up_my_sleeve",
+   "name": "暗藏杀机",
+   "status": "未改"
+  },
+  {
+   "id": "well_laid_plans",
+   "name": "周密暗算",
+   "status": "未改"
+  },
+  {
+   "id": "wraith_form",
+   "name": "幽灵形态",
+   "status": "未改"
+  }
+ ]
+}

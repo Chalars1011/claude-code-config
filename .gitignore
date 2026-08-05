@@ -1,0 +1,42 @@
+# Large / auto-generated
+cache/
+debug/
+file-history/
+paste-cache/
+projects/
+session-env/
+sessions/
+shell-snapshots/
+telemetry/
+backups/
+
+# Machine-specific
+settings.local.json
+test.db
+*.jsonl
+.last-cleanup
+
+# MCP binaries / Python scripts (from package installs)
+mcp-edge-browser.py
+plugins/
+
+# API keys - never push
+vision/config.json
+
+# Python / temp
+__pycache__/
+*.pyc
+*.bak
+*.bak.*
+*.tmp
+.DS_Store
+
+# API keys - settings contains secrets
+settings.json
+
+# Sensitive
+file-history/
+powershell-profile.ps1
+
+backups/
+history.jsonl

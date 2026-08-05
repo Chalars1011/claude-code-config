@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "ivanmurzak": {
+      "type": "http",
+      "url": "http://localhost:27025"
+    },
+    "browser": {
+      "command": "D:/AI绘画/ComfyUI/venv/Scripts/python",
+      "args": ["C:/Users/13040/.claude/mcp-edge-browser.py"]
+    }
+  }
+}

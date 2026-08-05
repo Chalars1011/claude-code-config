@@ -1,0 +1,23 @@
+{
+  "version": 2,
+  "plugins": {
+    "game-dev-design@fcsouza-agent-skills": [
+      {
+        "scope": "user",
+        "installPath": "C:\\Users\\13040\\.claude\\plugins\\cache\\fcsouza-agent-skills\\game-dev-design\\1.3.0",
+        "version": "1.3.0",
+        "installedAt": "2026-05-29T06:15:43.933Z",
+        "lastUpdated": "2026-05-29T06:15:43.933Z"
+      }
+    ],
+    "game-dev-narrative@fcsouza-agent-skills": [
+      {
+        "scope": "user",
+        "installPath": "C:\\Users\\13040\\.claude\\plugins\\cache\\fcsouza-agent-skills\\game-dev-narrative\\1.3.0",
+        "version": "1.3.0",
+        "installedAt": "2026-05-29T06:15:55.152Z",
+        "lastUpdated": "2026-05-29T06:15:55.152Z"
+      }
+    ]
+  }
+}

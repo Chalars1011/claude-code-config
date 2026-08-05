@@ -1,0 +1,18 @@
+{
+  "fcsouza-agent-skills": {
+    "source": {
+      "source": "file",
+      "path": "C:\\Users\\13040\\Desktop\\agent-skills\\agent-skills-main\\.claude-plugin\\marketplace.json"
+    },
+    "installLocation": "C:\\Users\\13040\\Desktop\\agent-skills\\agent-skills-main",
+    "lastUpdated": "2026-05-29T06:15:06.556Z"
+  },
+  "claude-plugins-official": {
+    "source": {
+      "source": "github",
+      "repo": "anthropics/claude-plugins-official"
+    },
+    "installLocation": "C:\\Users\\13040\\.claude\\plugins\\marketplaces\\claude-plugins-official",
+    "lastUpdated": "2026-05-29T06:18:40.221Z"
+  }
+}
