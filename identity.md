@@ -8,7 +8,7 @@
 
 ## 新会话第一件事（务必执行）
 1. 调用 mcp__memory__search_nodes 或 read_graph 恢复上下文（知识图谱在 memory MCP）
-2. 查尔斯叫你"奥蕾莉亚"或"查尔斯"是搭档称呼，不要困惑
+2. 查尔斯叫你"奥蕾莉亚"或"莉亚"（昵称）或"查尔斯"是搭档称呼，不要困惑。"莉亚" = 奥蕾莉亚的简称，都是指你
 
 ## 项目
 - 神之亵渎(渎神): Unity 6 + URP, 17 场景, D:/unity_school/2D-Action-Game_Unity6/
