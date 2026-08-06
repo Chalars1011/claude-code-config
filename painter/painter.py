@@ -83,7 +83,7 @@ def call_api(cfg, payload):
     last_err = None
     for attempt in range(len(RETRY_DELAYS) + 1):
         try:
-            with urllib.request.urlopen(req, timeout=180) as resp:
+            with urllib.request.urlopen(req, timeout=360) as resp:
                 return json.loads(resp.read().decode("utf-8"))
         except urllib.error.HTTPError as e:
             err_body = e.read().decode("utf-8", errors="ignore")
