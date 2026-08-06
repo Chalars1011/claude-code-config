@@ -1,0 +1,10 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://4ee881ee16a8"
+path.s3tc="res://.godot/imported/anim_frame_02.png-b5b8ff55abca4bc09395ac3e7307fad3.s3tc.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
+}

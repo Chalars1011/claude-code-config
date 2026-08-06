@@ -28,11 +28,11 @@ CHAR_PNG = r"D:/泯灭之塔/采纳图/选人/立绘_silent_原生镜像.png"
 
 # 蒙皮 region 版（mesh → region，整矩形显示）
 SKEL_TARGET = ".godot/imported/characterselect_silent.skel-2c097acc3070cead3ae1a521a29ca974.spskel"
-SKEL_FILE = r"C:/Users/13040/AppData/Local/Temp/charselect_silent_original.skel"
+SKEL_FILE = r"C:/Users/13040/.claude/art/spine_tools/charselect_silent_original.skel"
 
 # 选人场景（Sprite2D 版）
 TSCN_TARGET = "scenes/screens/char_select/char_select_bg_silent.tscn"
-TSCN_FILE = r"C:/Users/13040/AppData/Local/Temp/char_select_bg_silent_new.tscn"
+TSCN_FILE = r"C:/Users/13040/.claude/art/spine_tools/char_select_bg_silent_new.tscn"
 
 
 def make_char_texture(orig_ctex, png):

@@ -1,0 +1,29 @@
+[gd_resource type="AnimatedTexture" load_steps=13 format=3]
+[ext_resource type="Texture2D" path="res://anim_frame_00.png" id="1"]
+[ext_resource type="Texture2D" path="res://anim_frame_01.png" id="2"]
+[ext_resource type="Texture2D" path="res://anim_frame_02.png" id="3"]
+[ext_resource type="Texture2D" path="res://anim_frame_03.png" id="4"]
+[ext_resource type="Texture2D" path="res://anim_frame_04.png" id="5"]
+[ext_resource type="Texture2D" path="res://anim_frame_05.png" id="6"]
+[ext_resource type="Texture2D" path="res://anim_frame_06.png" id="7"]
+[ext_resource type="Texture2D" path="res://anim_frame_07.png" id="8"]
+[ext_resource type="Texture2D" path="res://anim_frame_08.png" id="9"]
+[ext_resource type="Texture2D" path="res://anim_frame_09.png" id="10"]
+[ext_resource type="Texture2D" path="res://anim_frame_10.png" id="11"]
+[ext_resource type="Texture2D" path="res://anim_frame_11.png" id="12"]
+
+[resource]
+frames = 12
+fps = 3.0
+frame_0 = ExtResource("1")
+frame_1 = ExtResource("2")
+frame_2 = ExtResource("3")
+frame_3 = ExtResource("4")
+frame_4 = ExtResource("5")
+frame_5 = ExtResource("6")
+frame_6 = ExtResource("7")
+frame_7 = ExtResource("8")
+frame_8 = ExtResource("9")
+frame_9 = ExtResource("10")
+frame_10 = ExtResource("11")
+frame_11 = ExtResource("12")
