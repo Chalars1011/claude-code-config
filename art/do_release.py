@@ -30,6 +30,13 @@ ATLAS_ENTRY = ".godot/imported/card_atlas_2.png-b839d300f2a53ba5863bc17e02165eea
 ATLAS_REPLACE = [
     ((253, 1345, 250, 190), r"D:/泯灭之塔/采纳图/卡牌/blade_dance_黑暗版v2.png"),
 ]
+# 主菜单背景（画笔重绘版）
+MENU_TARGETS = [
+    (".godot/imported/main_menu_bottom.png-d7d4537c3ec56f5f30144a17c9b31f7f.bptc.ctex",
+     r"D:/泯灭之塔/采纳图/背景/bottom_黑暗版_v2_full.png", "BC7_UNORM"),
+    (".godot/imported/main_menu_top.png-95e0772be3a5c9df8ceb498ad8b60bdb.s3tc.ctex",
+     r"D:/泯灭之塔/采纳图/背景/top_黑暗版_full.png", "BC3_UNORM"),
+]
 PORTRAITS = {
     ".godot/imported/accelerant.png-880614f6ed1cd4d533608da0e80ba9de.ctex": r"D:/泯灭之塔/采纳图/卡牌/accelerant_黑暗版.png",
     ".godot/imported/accuracy.png-8174f09989ee3333ec2da7f05baffa53.ctex": r"D:/泯灭之塔/采纳图/卡牌/accuracy_黑暗版.png",
@@ -61,7 +68,34 @@ def make_dark_atlas(orig_data):
     hdr_len = 148 if dds[84:88] == b"DX10" else 128
     encoded = dds[hdr_len:]
     assert len(encoded) == need
-    return orig_data[:36] + encoded + orig_data[36 + need:]
+    return orig_data[:36] + orig_data[36:52] + encoded  # 保留扩展头
+
+
+def make_menu_texture(orig_ctex, png, fmt_name):
+    """主菜单纹理：texconv 编码（保持原压缩格式），保留扩展头(16B)"""
+    w = struct.unpack("<I", orig_ctex[8:12])[0]
+    h = struct.unpack("<I", orig_ctex[12:16])[0]
+    need = ((w + 3) // 4) * ((h + 3) // 4) * 16
+    ext_head = orig_ctex[36:52]  # 扩展头（含宽高/标志）
+    tmp_png = r"D:/泯灭之塔/原版素材/卡牌/_menu_tmp.png"
+    tmp_dir = r"D:/泯灭之塔/原版素材/卡牌/_menu_out"
+    os.makedirs(tmp_dir, exist_ok=True)
+    im = Image.open(png).convert("RGBA")
+    bw, bh = (im.width + 3) // 4 * 4, (im.height + 3) // 4 * 4
+    if im.size != (bw, bh):
+        canvas = Image.new("RGBA", (bw, bh), (0, 0, 0, 0))
+        canvas.paste(im, (0, 0))
+        im = canvas
+    im.save(tmp_png)
+    r = subprocess.run([TEXCONV, "-f", fmt_name, "-m", "1", "-y", "-o", tmp_dir, tmp_png],
+                       capture_output=True, text=True, timeout=600)
+    assert r.returncode == 0, f"texconv: {r.stdout[-300:]}"
+    with open(os.path.join(tmp_dir, "_menu_tmp.dds"), "rb") as f:
+        dds = f.read()
+    hdr_len = 148 if dds[84:88] == b"DX10" else 128
+    encoded = dds[hdr_len:]
+    assert len(encoded) == need, f"长度 {len(encoded)} != {need}"
+    return orig_ctex[:36] + ext_head + encoded
 
 
 def make_portrait(orig_ctex, png):
@@ -121,6 +155,10 @@ def main():
                 print(f"  🔄 portrait: {path.split('/')[-1]}")
             elif path in loc_files:
                 data = loc_files[path]
+            for menu_path, menu_png, menu_fmt in MENU_TARGETS:
+                if path == menu_path:
+                    data = make_menu_texture(data, menu_png, menu_fmt)
+                    print(f"  🔄 主菜单: {path.split('/')[-1]}")
             pbytes = path.encode("utf-8")
             ppl = len(pbytes)
             while ppl % 4 != 0:
