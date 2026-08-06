@@ -56,12 +56,29 @@ DEFAULT_PROMPT = (
 )
 
 COMPARE_PROMPT = (
-    "请对比分析这 {n} 张图片（按传入顺序编号为 图1/图2/...）：\n"
-    "1) 每张图单独一句话概括主体与画风\n"
-    "2) 逐项横向对比：构图、色调、明暗层次、细节完整度、风格统一性\n"
-    "3) 差异清单：图2及之后相对图1的具体变化（构图/色彩/质感）\n"
-    "4) 评判：如果这是游戏美术的改图场景，哪张更适合游戏内使用？给出明确结论和理由。\n"
-    "用中文，按条目输出，直接、严格、不客气。"
+    "【客观对比模式】对比这 {n} 张图片（按传入顺序编号为 图1/图2/...），只陈述可见事实，禁止联想、推测、评价：\n"
+    "1) 每张图单独一句客观概括（主体内容、色调）\n"
+    "2) 逐项横向对比（客观差异）：主体位置、主体大小、色调、明暗、内容元素的增减\n"
+    "3) 差异清单：图2及之后相对图1的具体变化（位置/大小/色彩/元素），尽量量化（百分比/方向）\n"
+    "铁律：不做美丑好坏评价，不猜用途，看不清就说看不清。用中文，按条目输出。"
+)
+
+REVIEW_COMPARE_PROMPT = (
+    "你是资深游戏美术总监。对比评审这 {n} 张图片（按传入顺序编号为 图1/图2/...）：\n"
+    "1) 先识别每张图的风格类型，声明按该风格的标准评审\n"
+    "2) 逐项横向评审：构图（视觉重心/主体辨识）、色调（主调统一/层次）、明暗、细节完成度\n"
+    "3) 结论：哪张更适合游戏内使用？给出明确结论、理由和具体修改方向（说人话，少术语）\n"
+    "项目调性基准：'泯灭之塔'——黑暗哥特风游戏，暗色调是特征不是缺陷。直接、严格、不客气。"
+)
+
+MEASURE_PROMPT = (
+    "【测量模式】对这张图片做像素级客观测量，只输出量化数据，禁止评价：\n"
+    "1) 主体中心位置：在画面水平约百分之几、垂直约百分之几处（如 水平72%、垂直58%）\n"
+    "2) 主体尺寸：约占画面宽度百分之几、高度百分之几\n"
+    "3) 主体边界：顶部距画面上边、底部距画面下边、左侧距画面左边、右侧距画面右边各约百分之几\n"
+    "4) 其他显著元素：位置（水平/垂直百分比）+ 大致尺寸（宽高百分比）\n"
+    "5) 画面中的文字：位置 + 内容原样引用\n"
+    "全部用百分比和方位描述，不要用形容词，不确定就标'无法测量'。"
 )
 
 # 审美评审模式：rubric 制 + 风格自适应 + 项目调性基准
@@ -328,7 +345,9 @@ def make_report(paths, results, mode, out_path, as_json=False):
 def main():
     parser = argparse.ArgumentParser(description="👁️ 义眼 — 图片描述/审美评审工具 v" + TOOL_VERSION)
     parser.add_argument("images", nargs="*", help="图片路径（多张 = 对比模式）")
-    parser.add_argument("-a", "--aesthetic", action="store_true", help="审美评审模式（打分+诊断+修改建议）")
+    parser.add_argument("-a", "--aesthetic", "--review", action="store_true", help="审美评审模式（打分+诊断+修改建议）")
+    parser.add_argument("--describe", action="store_true", help="客观描述模式（默认）")
+    parser.add_argument("--measure", action="store_true", help="测量模式（像素级位置/尺寸量化）")
     parser.add_argument("--dir", default=None, help="批量评审目录下所有图片")
     parser.add_argument("--pattern", default=None, help="--dir 时的文件名过滤（正则，如 'png$'）")
     parser.add_argument("--report", default=None, help="报告输出路径（.md 或 .json，按扩展名识别格式）")
@@ -342,7 +361,7 @@ def main():
         print("可用的 provider:")
         for k, v in PROVIDERS.items():
             print(f"  - {k}: {v['name']} (model: {v['model']})")
-        print("模式: 默认描述 | -a/--aesthetic 审美评审 | 多图自动对比 | --dir 批量评审")
+        print("模式: 客观描述(默认) | -a/--review 审美评审 | --measure 测量 | 多图自动对比(可加-a变评审对比) | --dir 批量")
         return
 
     cfg = load_config()
@@ -370,14 +389,24 @@ def main():
         if not paths:
             print("❌ 目录里没有可评审的图片")
             sys.exit(1)
-        mode = "审美评审" if args.aesthetic else "描述"
-        print(f"👁️ 义眼 批量[{mode}] 共 {len(paths)} 张，开始逐个评审...", file=sys.stderr)
+        if args.measure:
+            mode = "测量"
+        elif args.aesthetic:
+            mode = "审美评审"
+        else:
+            mode = "客观描述"
+        print(f"👁️ 义眼 批量[{mode}] 共 {len(paths)} 张，开始逐个处理...", file=sys.stderr)
         results = []
         for i, p in enumerate(paths, 1):
             info = get_image_info(p)
             dims = f"{info['width']}x{info['height']}" if info.get("width") else "?"
             print(f"  [{i}/{len(paths)}] {os.path.basename(p)} ({fmt_size(info.get('size_bytes'))}，{dims}) ...", file=sys.stderr)
-            prompt = args.prompt or (AESTHETIC_PROMPT if args.aesthetic else DEFAULT_PROMPT)
+            if args.prompt:
+                prompt = args.prompt
+            elif args.measure:
+                prompt = MEASURE_PROMPT
+            else:
+                prompt = AESTHETIC_PROMPT if args.aesthetic else DEFAULT_PROMPT
             try:
                 text = call_qwen(cfg, [image_to_base64(p)], prompt, PROVIDERS[args.provider]["max_tokens"])
                 score = extract_score(text) if args.aesthetic else None
@@ -420,12 +449,12 @@ def main():
         dims = f"{info['width']}x{info['height']}" if info.get("width") else "?"
         print(f"  图片: {p}（{fmt_size(info.get('size_bytes'))}，{dims}）", file=sys.stderr)
 
-    if args.aesthetic and len(paths) > 1:
-        print("❌ 审美评审 (-a) 是单图模式。多图对比请去掉 -a；批量评审用 --dir -a。")
-        sys.exit(1)
-
     if args.prompt:
         prompt = args.prompt
+    elif args.measure:
+        prompt = MEASURE_PROMPT
+    elif args.aesthetic and len(paths) > 1:
+        prompt = REVIEW_COMPARE_PROMPT.format(n=len(paths))
     elif args.aesthetic:
         prompt = AESTHETIC_PROMPT
     elif len(paths) > 1:
@@ -433,7 +462,12 @@ def main():
     else:
         prompt = DEFAULT_PROMPT
 
-    mode = "审美评审" if args.aesthetic else ("对比" if len(paths) > 1 else "描述")
+    if args.measure:
+        mode = "测量"
+    elif args.aesthetic:
+        mode = "评审对比" if len(paths) > 1 else "审美评审"
+    else:
+        mode = "客观对比" if len(paths) > 1 else "客观描述"
     print(f"👁️ 义眼 ({PROVIDERS[args.provider]['name']}) [{mode}] 正在看图: {', '.join(os.path.basename(p) for p in paths)} ...", file=sys.stderr)
     result = call_qwen(cfg, [image_to_base64(p) for p in paths], prompt, PROVIDERS[args.provider]["max_tokens"])
 
