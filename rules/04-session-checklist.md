@@ -12,6 +12,18 @@
 - [ ] auto-backup.sh 触发 git push
 ✅ Session End: [检查项状态]
 
+## 推送安全（任何 git push 前，P0 级）
+
+> 2026-08-06 事件：DeepSeek key 曾随公开 GitHub 仓库泄露，7/27 起被盗刷 40+ 元。
+> 根因：~/.claude 配置仓设为 public，settings.json（含 key）被提交。
+
+### 硬性检查
+- [ ] **仓库必须是 private**（新建仓库默认 private，public 需双确认）
+- [ ] 敏感文件不在提交范围：settings.json / vision/config.json / .env / *.jsonl / backups/ / file-history/ / sessions/ / shell-snapshots/
+- [ ] 不向任何外部工具（代码粘贴、AI 对话、群聊）发送 key 明文
+- [ ] 全局 pre-push hook 已装（`git config --global core.hooksPath` = C:/Users/13040/.git-hooks）——命中自动拦截，逃生舱仅限确认安全后 `--no-verify`
+- [ ] 密钥一旦进过公开渠道 → 立即吊销重建，只删文件不算完
+
 ## 会话启动（新对话开始时）
 
 ### 自动执行

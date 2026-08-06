@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""最终发布版：Steam 原版 + 46 文案 + 图集黑暗版 + 7 portrait 黑暗版，16 对齐"""
+"""主菜单静态版：Steam 原版 + 46 文案 + 主菜单 ctex 黑暗版 + main_menu_bg.tscn 改静态 Sprite（绕开 Spine 图集错位）"""
 
 import hashlib
 import io
@@ -31,8 +31,18 @@ ATLAS_REPLACE = [
     ((253, 1345, 250, 190), r"D:/泯灭之塔/采纳图/卡牌/blade_dance_黑暗版v2.png"),
 ]
 # 主菜单背景（画笔重绘版）
-# 主菜单黑暗化已放弃(2026-08-06): Spine 骨骼布局无法简单替换, 三条路线均失败, 保留原版界面
-MENU_TARGETS = []
+# 主菜单黑暗化 v3 (2026-08-06 部件级重绘): clouds/layer52/blue_gradient/city/spire/water/pulse
+MENU_TARGETS = [
+    (".godot/imported/main_menu_bottom.png-d7d4537c3ec56f5f30144a17c9b31f7f.bptc.ctex",
+     r"D:/泯灭之塔/采纳图/背景/bottom_改版_v8.png", "BC7_UNORM"),
+    (".godot/imported/main_menu_top.png-95e0772be3a5c9df8ceb498ad8b60bdb.s3tc.ctex",
+     r"D:/泯灭之塔/采纳图/背景/top_改版_v8.png", "BC3_UNORM"),
+    (".godot/imported/main_menu_logo.png-2445f60b90a865a17ff4d6c2a25be4ce.s3tc.ctex",
+     r"D:/泯灭之塔/采纳图/背景/logo_改版_v1.png", "BC3_UNORM"),
+]
+TSCN_ENTRY = "scenes/backgrounds/main_menu_bg.tscn"
+TSCN_REPLACE = open(r"C:/Users/13040/AppData/Local/Temp/main_menu_bg_orig.tscn", encoding="utf-8").read()  # 还原原版 Spine 场景
+
 PORTRAITS = {
     ".godot/imported/accelerant.png-880614f6ed1cd4d533608da0e80ba9de.ctex": r"D:/泯灭之塔/采纳图/卡牌/accelerant_黑暗版.png",
     ".godot/imported/accuracy.png-8174f09989ee3333ec2da7f05baffa53.ctex": r"D:/泯灭之塔/采纳图/卡牌/accuracy_黑暗版.png",
@@ -151,6 +161,9 @@ def main():
                 print(f"  🔄 portrait: {path.split('/')[-1]}")
             elif path in loc_files:
                 data = loc_files[path]
+            elif path == TSCN_ENTRY:
+                data = TSCN_REPLACE.encode("utf-8")
+                print("  🔄 主菜单场景（静态 Sprite 版）")
             for menu_path, menu_png, menu_fmt in MENU_TARGETS:
                 if path == menu_path:
                     data = make_menu_texture(data, menu_png, menu_fmt)
@@ -199,7 +212,7 @@ def main():
     out.write(struct.pack("<Q", dstart))
     out.close()
 
-    shutil.copy2(OUT, OUT + ".bak_release_prev")
+    shutil.copy2(OUT, OUT + ".bak_menu_static_prev")
     shutil.move(OUT + ".rel", OUT)
     print(f"✅ 最终发布版已就位: {OUT} ({os.path.getsize(OUT)/1024/1024:.0f}MB)")
 
