@@ -117,19 +117,23 @@ def summarize_tasks():
             out.append("· " + piece)
     return "\n".join(out)
 
+HISTORY_LOCK = threading.Lock()  # 防并发读写写坏历史文件
+
 def load_history():
-    if not os.path.exists(HISTORY_PATH):
-        return {}
     try:
-        with open(HISTORY_PATH, encoding="utf-8") as f:
-            return json.load(f)
+        with HISTORY_LOCK:
+            if not os.path.exists(HISTORY_PATH):
+                return {}
+            with open(HISTORY_PATH, encoding="utf-8") as f:
+                return json.load(f)
     except Exception:
         return {}
 
 def save_history(h):
     try:
-        with open(HISTORY_PATH, "w", encoding="utf-8") as f:
-            json.dump(h, f, ensure_ascii=False, indent=1)
+        with HISTORY_LOCK:
+            with open(HISTORY_PATH, "w", encoding="utf-8") as f:
+                json.dump(h, f, ensure_ascii=False, indent=1)
     except Exception as e:
         log("历史保存失败: " + str(e))
 
