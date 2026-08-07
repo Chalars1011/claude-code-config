@@ -9,6 +9,7 @@
 - [ ] decisions.md 有新决策 → 已追加
 - [ ] playbook 有新增? 已问用户确认
 - [ ] 告诉用户下次做什么
+- [ ] **莉亚QQ联动：今天有项目进展/与查尔斯的互动 → 更新 D:/LiaQQ/memory_snapshot.md（QQ上的莉亚靠它保持记忆同步）**
 - [ ] auto-backup.sh 触发 git push
 ✅ Session End: [检查项状态]
 
@@ -33,4 +34,5 @@
 - [ ] 项目是 Unity? → 确认 Unity MCP 在线
 - [ ] 读 context/progress.md → 恢复进度
 - [ ] 读 context/decisions.md → 恢复设计约束
+- [ ] **莉亚QQ联动：读 D:/LiaQQ/tasks.md 查有无QQ下达的任务；有进展时读 D:/LiaQQ/inbox/ 查查尔斯发的图片**
 ✅ Session Start: [检查项状态]
