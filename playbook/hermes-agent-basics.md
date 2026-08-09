@@ -30,7 +30,7 @@
 ## 权限（approvals）
 - 危险命令（rm -rf / git push --force）→ 弹确认（gateway 下发 /approve 给用户）
 - shutdown 类 → 直接拒绝（硬黑名单）
-- config.yaml `approvals.deny` 配自定义拒绝（Bash(del *) 格式）
+- config.yaml `approvals.deny` 配自定义拒绝（Bash(del *) 格式）——⚠️ **2026-08-09 实测：deny 配置在真实 gateway 中不生效**（单文件删除直接执行），已弃用；Hermes 内置危险拦截（rm -rf /、shutdown 类）才是可靠底线
 - `hermes approvals test -- 命令` 试判（注意：可能不加载 config deny，以运行为准）
 - 注意 MSYS 路径转换影响命令判定（/f → F:/）
 
