@@ -40,3 +40,4 @@ powershell-profile.ps1
 
 backups/
 history.jsonl
+plugins/cache
