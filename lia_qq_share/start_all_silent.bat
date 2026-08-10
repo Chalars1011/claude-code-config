@@ -22,8 +22,6 @@ echo [NapCat] not ready in 60s, manual login may be needed
 goto end
 :napcat_ok
 echo [1/2] NapCat ready
-echo [2/2] Starting bridge...
-start "LiaBridge" /min cmd /c "cd /d D:\LiaQQ && C:\Users\13040\AppData\Local\Programs\Python\Python312\python.exe lia_qq.py"
-echo [OK] Lia online
+echo [2/2] Bridge skipped: Hermes gateway manages QQ (2026-08-10, lia_qq.py retired)
 :end
 exit
