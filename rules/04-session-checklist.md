@@ -8,8 +8,9 @@
 - [ ] context/progress.md 已更新
 - [ ] decisions.md 有新决策 → 已追加
 - [ ] playbook 有新增? 已问用户确认
+- [ ] **程序记忆闭环（2026-08-10 立）**：今天有没有干成重复性/可复用的活？有 → 当场抽成参数化流程追加到 playbook（具体值变占位符），并更新 index.md。成功路径和踩坑一样值得记
 - [ ] 告诉用户下次做什么
-- [ ] **莉亚QQ联动：今天有项目进展/与查尔斯的互动 → 更新 D:/LiaQQ/memory_snapshot.md（QQ上的莉亚靠它保持记忆同步）**
+- [ ] **莉亚QQ联动：今天有项目进展/与查尔斯的互动 → 已由 scene_bus 实时同步（D:/Aurelia/.events/ + conversations/qq/），无需手动更新旧桥文件**
 - [ ] auto-backup.sh 触发 git push
 ✅ Session End: [检查项状态]
 
@@ -34,5 +35,5 @@
 - [ ] 项目是 Unity? → 确认 Unity MCP 在线
 - [ ] 读 context/progress.md → 恢复进度
 - [ ] 读 context/decisions.md → 恢复设计约束
-- [ ] **莉亚QQ联动：读 D:/LiaQQ/tasks.md 查有无QQ下达的任务；有进展时读 D:/LiaQQ/inbox/ 查查尔斯发的图片**
+- [ ] **莉亚QQ联动：查 D:/Aurelia/tasks.md 看有无QQ下达的任务；翻 D:/Aurelia/.events/ 最近几条看查尔斯在QQ/家说了什么（scene_bus 已实时同步）**
 ✅ Session Start: [检查项状态]
