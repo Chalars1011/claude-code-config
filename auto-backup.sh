@@ -81,3 +81,18 @@ if [ -d "$QM/.git" ]; then
     echo "⏭ QQ记忆无变化"
   fi
 fi
+
+# ===== 人格/经验同步（2026-08-09：playbook/rules/skills/agents/CLAUDE.md/hooks 进 Aurelia 仓）=====
+if [ -d "$CORE_REPO/.git" ]; then
+  mkdir -p "$CORE_REPO"/playbook "$CORE_REPO"/rules "$CORE_REPO"/skills "$CORE_REPO"/agents "$CORE_REPO"/config/hooks
+  cp -r "$HOME/.claude"/playbook "$HOME/.claude"/rules "$HOME/.claude"/skills "$HOME/.claude"/agents "$CORE_REPO/" 2>/dev/null
+  cp "$HOME/.claude"/CLAUDE.md "$HOME/.claude"/session-start.sh "$HOME/.claude"/qq-prompt-hook.sh "$CORE_REPO/" 2>/dev/null
+  cp "$HOME/.claude"/governance-check.sh "$HOME/.claude"/status-cleanup.sh "$HOME/.claude"/session-end-event.sh "$CORE_REPO/config/hooks/" 2>/dev/null
+  cd "$CORE_REPO"
+  if ! git diff --quiet || ! git diff --cached --quiet; then
+    git add -A
+    git commit -m "persona-sync: $(date '+%Y-%m-%d %H:%M')" --quiet
+    git push origin HEAD:main --quiet 2>/dev/null || true
+    echo "✅ 人格/经验已同步到 GitHub (Aurelia)"
+  fi
+fi
