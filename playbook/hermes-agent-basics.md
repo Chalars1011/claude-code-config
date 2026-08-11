@@ -1,6 +1,6 @@
 # Hermes Agent 基础机制（Nous Research）
 
-> 2026-08-09 搬家+深度使用。数据目录 %LOCALAPPDATA%/hermes/，源码 hermes-agent/（git 仓库）。
+> 创建: 2026-08-09 | 更新: 2026-08-09 | 适用: 工作站/通用 | 类型: 经验
 
 ## 进程/常驻
 - Hermes.exe（桌面端）+ gateway 服务（登录自启：Startup 文件夹 Hermes_Gateway.vbs）

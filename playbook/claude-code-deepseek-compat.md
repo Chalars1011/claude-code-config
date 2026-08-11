@@ -1,6 +1,6 @@
 # Claude Code + DeepSeek 兼容层经验
 
-> 2026-08-08/09 踩坑记录。工作站用 Claude Code CLI 连 DeepSeek（ANTHROPIC_BASE_URL 指向 DeepSeek 的 anthropic 兼容口）。
+> 创建: 2026-08-09 | 更新: 2026-08-09 | 适用: 工作站/通用 | 类型: 经验
 
 ## 已知失效（兼容层限制，2026-08-09 实测）
 - **CLAUDE.md 注入可能不生效**（会话开头没身份/规则——表现为"失忆"）

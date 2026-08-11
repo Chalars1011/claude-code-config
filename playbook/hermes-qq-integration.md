@@ -1,6 +1,6 @@
 # Hermes 接入 QQ（hermes-agent-onebot）· 实战经验
 
-> 2026-08-09 首次打通（查尔斯/莉亚）。QQ 从自研桥（lia_qq.py）切换到 Hermes gateway（agent 自判）。
+> 创建: 2026-08-09 | 更新: 2026-08-09 | 适用: 工作站/通用 | 类型: 经验
 
 ## 架构
 QQ --NapCat(ws://127.0.0.1:3001 正向WS)-->> onebot.py 适配器 --> Hermes gateway --> agent 自判

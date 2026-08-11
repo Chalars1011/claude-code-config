@@ -1,6 +1,6 @@
 # Windows + Python 坑合集（MSYS2/Git Bash 环境）
 
-> 2026-08-09 多次踩坑。查尔斯的工作站是 Windows + Git Bash（MSYS2）。
+> 创建: 2026-08-11 | 更新: 2026-08-11 | 适用: 工作站/通用 | 类型: 经验
 
 ## 控制台编码（高频）
 - 现象：print 中文/特殊字符（U+2011 等）报 UnicodeEncodeError（GBK 控制台）
@@ -23,6 +23,12 @@
 - 脚本调子进程时用**绝对路径**指定对的解释器，别依赖 PATH
 - **cron 环境 PATH 更窄**（2026-08-11 实测）：cron 拉起的 python 找不到 `bash`（WinError 2），`subprocess.run(["bash", ...])` 直接挂。修法：绝对路径 `D:/Git/bin/bash.exe`。症状：脚本手动跑成功但 cron 报 script failed
 - **PYTHONPATH 污染**（2026-08-11 实测）：Hermes 设了 PYTHONPATH 指向 venv site-packages，所有 python（包括系统 Python312）都会加载 venv 里损坏的 numpy。跑独立脚本前 `unset PYTHONPATH`
+
+## npm 全局包更新（2026-08-11 实测 Claude Code 2.1.217→2.1.227）
+- **npm 新安全策略会拦 install scripts**：`npm install -g` 后报 `install scripts blocked because they are not covered by allowScripts`，原生二进制没装上，命令报 `claude native binary not installed`。修法：`npm install -g <pkg> --allow-scripts=<pkg>` 或 `npm config set allow-scripts=<pkg> --location=user`
+- **目录被 bash 锁删不掉**：`rm -rf` 报 `Device or resource busy`——是当前 shell 的 CWD 在里面（cd 进去过）。先 `cd` 出来再删；还 busy 就 `rm -rf dir/*` 清内容再 `rmdir`
+- **npm 记录与实际安装位置可能对不上**：`npm root -g` 显示 Hermes 的 node 目录但包实际在 `AppData/Roaming/npm/node_modules/`——以 `which <cmd>` 和 `npm ls -g` 实际结果为准
+- **验证更新成功**：`<cmd> --version` + 实测跑一次（`claude -p "回复OK" --permission-mode bypassPermissions`），别只看 npm 输出
 
 ## 文件编码
 - 中文文件名/内容：写文件统一 encoding="utf-8"
