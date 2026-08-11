@@ -1,7 +1,7 @@
 # Hermes Gateway 运维手册（重启/故障排查）
 
-> 创建: 2026-08-10 | 更新: 2026-08-10 | 适用: Hermes 桌面端 | 类型: 运维流程
-> 来源: 2026-08-10 QQ 链路连环事故（gateway 一天死三次）复盘
+> 创建: 2026-08-10 | 更新: 2026-08-11 | 适用: Hermes 桌面端 | 类型: 运维流程
+> 来源: 2026-08-10 QQ 链路连环事故 + 2026-08-11 QQ 蹦英文两坑复盘
 
 ## 适用场景
 QQ 没响应/消息发不出去/gateway 挂了，或改完 Hermes 代码需要重启 gateway。
@@ -48,6 +48,22 @@ tail ~/AppData/Local/hermes/logs/gateway.log  # 找 "✓ onebot connected"
 
 ### 改代码后必须验证
 改 onebot.py / gateway 相关代码 → 语法检查（venv python -c "import ast; ast.parse(...)"）→ 重启 → 验证连接 → 实测功能（发条消息）
+
+## QQ 蹦英文排查（2026-08-11 新增两坑）
+
+### 坑 A：新会话第一条消息蹦英文 "📬 No home channel is set for Onebot..."
+- **现象**：删旧会话/新会话第一条消息时，QQ 收到英文提示（home channel 通知）
+- **根因**：`gateway/run.py` ~17835 行，平台没设 home channel 时对新会话首条消息发英文 notice
+- **修法**：config.yaml `platforms.onebot.home_channel: {platform: onebot, chat_id: qq-1304024816, name: Charles}`（用 `hermes config set platforms.onebot.home_channel.chat_id qq-1304024816` 等，config.yaml 直接 patch 会被安全保护拒）
+- **兜底**：run.py 的 notice 文案已中文化（以后换平台也不蹦英文）
+- **排查线索**：这类提示不走对话归档！gateway.log/归档全干净时，去 grep run.py 的英文文案定位
+
+### 坑 B：重启 gateway 后 QQ 收到"我回来了"自动回复
+- **现象**：强杀/崩溃后重启，QQ 收到一条"刚才是网关断了一下又恢复了"式回复（45 字左右，中文，agent 生成）
+- **根因**：Hermes 崩溃恢复 auto-resume（社区 issue #35576）：被杀时活动会话标 resume_pending，重启 `_schedule_resume_pending_sessions()` 合成空消息续跑 → 发回原平台。gateway.log 里是 `inbound message: ... msg=''` → response ready
+- **开关（2026-08-11 本地加）**：config.yaml `agent.gateway_auto_resume: false`。run.py 两处改动：①~2210 行桥接 `HERMES_GATEWAY_AUTO_RESUME` env；②`_schedule_resume_pending_sessions()` 开头判断 false 直接 return
+- **验证**：重启后日志出现 `Startup auto-resume skipped: HERMES_GATEWAY_AUTO_RESUME=false` 即生效
+- **副作用**：关闭后崩溃中断的会话不自动续跑，但 transcript 保留，下条真实消息正常恢复
 
 ## 相关文件
 - 启动脚本: `~/AppData/Local/hermes/gateway-service/Hermes_Gateway.vbs` / `.cmd`
