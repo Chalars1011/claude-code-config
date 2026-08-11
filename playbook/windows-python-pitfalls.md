@@ -18,9 +18,11 @@
 
 ## 环境区分
 - 系统 Python312（C:/Users/13040/AppData/Local/Programs/Python/Python312）——装了 websocket-client 等
-- Hermes venv（hermes-agent/venv）——无 websocket-client
+- Hermes venv（hermes-agent/venv）——无 websocket-client，numpy 还可能是坏的（numpy._core._multiarray_umath 缺失）
 - uv python（AppData/Roaming/uv）——Hermes 桌面端
 - 脚本调子进程时用**绝对路径**指定对的解释器，别依赖 PATH
+- **cron 环境 PATH 更窄**（2026-08-11 实测）：cron 拉起的 python 找不到 `bash`（WinError 2），`subprocess.run(["bash", ...])` 直接挂。修法：绝对路径 `D:/Git/bin/bash.exe`。症状：脚本手动跑成功但 cron 报 script failed
+- **PYTHONPATH 污染**（2026-08-11 实测）：Hermes 设了 PYTHONPATH 指向 venv site-packages，所有 python（包括系统 Python312）都会加载 venv 里损坏的 numpy。跑独立脚本前 `unset PYTHONPATH`
 
 ## 文件编码
 - 中文文件名/内容：写文件统一 encoding="utf-8"
