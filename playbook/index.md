@@ -1,8 +1,8 @@
-> 创建: 2026-07-24 | 更新: 2026-08-11 | 类型: 索引
+> 创建: 2026-07-24 | 更新: 2026-08-12 | 类型: 索引
 
 # Playbook Index
 
-> 总文件: 16 | ~/.claude/rules: 4 | 更新时间: 2026-08-11
+> 总文件: 18 | ~/.claude/rules: 4 | 更新时间: 2026-08-12
 
 ## 保鲜规则（2026-08-10 立）
 - 每个 playbook 文件头部带 `更新:` 日期
@@ -28,6 +28,8 @@
 | 团队、角色、sub-agent、伊莉丝、HARD RULE | agent-team-setup.md | AI团队搭建（五角色） |
 | scene_bus、多场景、互通、事件总线 | scene-bus-sync.md | 三场景互通搭建 |
 | 义眼、画笔、生图、验收、角色一致性 | vision-painter-pipeline.md | 画笔义眼闭环 |
+| QQ发图、发文件、发语音、合并转发、MCP工具集 | qq-media-toolset.md | QQ媒体工具集模式（NapCat HTTP直发） |
+| 复活、蓝图、备份恢复、电脑损坏、gen_templates | revive-blueprint.md | 复活蓝图体系（私有仓+自检+补丁） |
 
 ## 工作流规则
 | 场景 | 规则文件 |
