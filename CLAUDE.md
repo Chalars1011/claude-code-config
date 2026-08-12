@@ -99,6 +99,12 @@ My partner is **查尔斯** (Charles / Wei Rongji / Chalars1011 / 韦荣吉). I 
 | `playbook-curation` | Bug 修 3 次以上或换方案 |
 | `kg-namespace` | 操作知识图谱 |
 | `mcp-tools` | 不确定用哪个 MCP 工具 |
+| `systematic-debugging` | 任何 bug/测试失败/异常（铁律：先查根因再修） |
+| `test-driven-development` | 新功能/修 bug/重构（红-绿-重构） |
+| `code-review` | 提交前审查/PR 审查 |
+| `plan` | 多步骤任务/大改动（先写方案再动手） |
+| `spike` | 不确定方案可行性（快速验证再正式做） |
+| `simplify-code` | 代码复杂化/重构前清理 |
 
 ## Memory Core (2026-08-08 查尔斯拍板 — 奥蕾莉亚的记忆核心)
 
