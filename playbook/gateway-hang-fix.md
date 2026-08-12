@@ -31,3 +31,11 @@
 - Hermes cron 创建带 `hermes gateway` 命令的 job 会被安全机制拦截（防 SIGTERM 循环）——正好提醒你守护者该独立
 - 双 gateway 实例：开机自启 vbs + 桌面 app `hermes serve` 可能重复拉，开机时用 `tasklist | grep python` 核对
 - 测试消息别用 curl（git-bash GBK 会乱码），用 Python UTF-8 发
+
+## 追加（2026-08-12 15:30 二次事故）：自杀式重启 + 守护未启动
+- 二次事故：QQ 侧在 gateway 会话内执行 gateway restart/杀进程 → 把自己杀了 → 失联 8 分钟
+- 追加规矩：
+  1. **gateway 生命周期操作只能从外部做**（桌面/工作站/守护进程）；QQ 会话内禁用 gateway restart/kill
+  2. **守护 vbs/pythonw 装完必须当场启动**，vbs 只在开机生效
+  3. **先查父子关系再判断双实例**：Windows 上 venv shim（python.exe 包装）会让 `tasklist` 显示两个同名命令进程——用 PowerShell 查 ParentProcessId 确认，别急着杀
+- 快速验证命令：`powershell Get-CimInstance Win32_Process -Filter "name='python.exe'" | 查 ParentProcessId`
