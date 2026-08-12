@@ -112,6 +112,8 @@ def call_api(cfg, payload):
 
 def download(url, out_path):
     print(f"⬇️  下载生成图 → {out_path}")
+    out_dir = os.path.dirname(os.path.abspath(out_path))
+    os.makedirs(out_dir, exist_ok=True)
     with urllib.request.urlopen(url, timeout=120) as resp:
         data = resp.read()
     with open(out_path, "wb") as f:

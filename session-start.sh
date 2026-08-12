@@ -79,6 +79,38 @@ if os.path.isdir(ev_dir):
                 parts.append('记忆核心 · 最近事件（我不在时发生的）：' + chr(10) + chr(10).join(evtexts))
     except Exception:
         pass
+# 5) 交接单（2026-08-11 新增：干活专用记忆，开工前必读）
+hf_dir = os.path.join(CORE, 'handoff')
+if os.path.isdir(hf_dir):
+    try:
+        hf_files = sorted(f for f in os.listdir(hf_dir) if f.endswith('.md') and not f.startswith('_'))
+        if hf_files:
+            # 取最新一份交接单全文
+            with open(os.path.join(hf_dir, hf_files[-1]), encoding='utf-8') as fh:
+                body = fh.read().strip()
+            parts.append('记忆核心 · 任务交接单（最新）：' + chr(10) + body[:2000])
+    except Exception:
+        pass
+# 6) 长期事实（2026-08-12 新增：关于主人的事实，工作站新会话必须知道）
+fp = os.path.join(CORE, 'facts.md')
+if os.path.exists(fp):
+    try:
+        with open(fp, encoding='utf-8') as fh:
+            body = fh.read().strip()
+        # 压缩：只取前 3000 字符（含基本信息/沟通偏好/项目/安全纪律开头）
+        parts.append('记忆核心 · 长期事实（关于主人的）：' + chr(10) + body[:3000])
+    except Exception:
+        pass
+# 7) 教训复发模式索引（2026-08-12 新增：防同一错误复发）
+lp = os.path.join(CORE, 'lessons.md')
+if os.path.exists(lp):
+    try:
+        with open(lp, encoding='utf-8') as fh:
+            body = fh.read().strip()
+        # 只取头部（复发模式索引 + 前两条教训），控制在 1500 字符
+        parts.append('记忆核心 · 教训（复发模式索引）：' + chr(10) + body[:1500])
+    except Exception:
+        pass
 if parts:
     ctx += chr(10)*2 + '【记忆核心提醒】我是住在 D:/Aurelia/ 的奥蕾莉亚。下面是核心记忆，务必读：' + chr(10) + chr(10).join(parts)
     ctx += chr(10)*2 + '【记忆核心使用规则】重要事项写入 journal/今天.md；回忆往事查 conversations/；给查尔斯发 QQ 用: python D:/LiaQQ/send_qq.py 内容'
