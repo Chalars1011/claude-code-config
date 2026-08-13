@@ -94,3 +94,21 @@ subprocess.run(["schtasks", "/delete", "/tn", "gw_restart_once", "/f"], check=Tr
 - 必须用 Python subprocess（列表参数），bash 直接调 schtasks 会被 MSYS 转义搞坏（/create 变 //create）
 - restart_gateway_once.py 内部：subprocess.run(["hermes", "gateway", "restart"])，日志写 gateway-restart-standalone.log
 - 守护进程（gateway_guard.py）也扛这个职责，但 schtasks 是"现在就要重启"的即时通道
+
+## 2026-08-13 追加：QQ 链路根治（gateway 假活 + 总监护）
+
+### 判断 gateway 真活（血泪教训）
+- 真脉搏 = `state/gateway.heartbeat` 的 mtime（Hermes 官方 loop-liveness，30s 一跳，循环冻结即停更）
+- `gateway_state.json` 的 updated_at **不持续刷新**（只在事件时写）——曾据此把健康 gateway 误判假死、误重启（15:17 事故）
+- `hermes gateway status` 报 running 只证明进程在；循环冻结要配合心跳判断
+
+### 总监护架构（chain_guard）
+- scripts/chain_guard.py 常驻（60s 一轮）：NapCat（3000 HTTP 登录态）/ gateway（status+心跳）/ scene_bus（wmic）三环节，谁死按序拉起
+- 告警直走 NapCat HTTP（send_private_msg），不经过 gateway（独立通道）
+- 开机自启：chain_guard.vbs；兜底：cron「总监护兜底」ece53510f2d2 每分钟盯 chain_guard 本身
+- 旧 gateway_guard.py / gateway_guard.vbs 已退役（.disabled），别复活——双守护会打架（14:52-15:17 实测：旧守护误判重启健康 gateway）
+- 实测数据：杀 gateway → 34s 检出 → 58s 救活（对比旧架构 40 分钟无人发现）
+
+### 6016 冻结悬案（观察中）
+- 14:06 起，14:12:24 最后 cron 运行，14:12:52 心跳停——空闲状态冻结，非 QQ 消息触发
+- 已被 chain_guard 心跳检测兜住：再犯时 2 分钟内自动重启+留痕（log: D:/Aurelia/.chain_guard.log）
