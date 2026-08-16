@@ -30,6 +30,7 @@
 | 义眼、画笔、生图、验收、角色一致性 | vision-painter-pipeline.md | 画笔义眼闭环 |
 | QQ发图、发文件、发语音、合并转发、MCP工具集 | qq-media-toolset.md | QQ媒体工具集模式（NapCat HTTP直发） |
 | 复活、蓝图、备份恢复、电脑损坏、gen_templates | revive-blueprint.md | 复活蓝图体系（私有仓+自检+补丁） |
+| HTML游戏、headless自检、截图验收、后门水印、像素复核 | html-game-headless-qa.md | HTML游戏交付自检链（8-16方块世界v2验证） |
 
 ## 工作流规则
 | 场景 | 规则文件 |
