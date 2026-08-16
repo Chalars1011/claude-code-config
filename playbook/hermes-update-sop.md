@@ -1,7 +1,7 @@
 # Hermes 更新 SOP（避坑流程）
 
-> 创建: 2026-08-11 | 更新: 2026-08-11 | 适用: Hermes 桌面端 | 类型: 运维流程
-> 来源: 2026-08-11 查尔斯问"以后更新应该怎么做"，+ 本地 9 文件补丁的现实
+> 创建: 2026-08-11 | 更新: 2026-08-16 | 适用: Hermes 桌面端 | 类型: 运维流程
+> 来源: 2026-08-11 查尔斯问"以后更新应该怎么做"，+ 本地 9 文件补丁的现实；2026-08-14 0.20.0→0.20.1 实战补充
 
 ## 核心原则
 
@@ -107,6 +107,13 @@ tail ~/AppData/Local/hermes/logs/gateway.log   # 找 "✓ onebot connected"
 # 5. 验证 auto-resume 开关还在（重启 gateway 日志出现 "Startup auto-resume skipped"）
 # 6. 验证 home channel 配置还在（hermes config get platforms.onebot.home_channel）
 ```
+
+## 实战补充（2026-08-14 0.20.0→0.20.1，一次真翻车）
+
+1. **全停不止进程，还要先暂停守护 cron**：chain_guard/scene_bus 自己的守护进程会锁 venv .pyd；杀了又被「总监护兜底」/「scene_bus守护」两个分钟级 cron 拉起，反复挡。顺序：先 `cronjob action=pause` 暂停这两个 cron → 杀干净 → 更新 → 恢复 scheduled。
+2. **hermes update 会硬重置 checkout**：不是简单 git pull——本地 carried commits 全丢（8-14 连 onebot.py 整体被冲，upstream 新版删了 onebot 平台）。**git stash 保不住**，可靠防线是复活蓝图补丁（D:/revive-blueprint/patches/001-onebot-hardening.patch，完整文件创建模式=自带备份能力）：`git apply` 直接恢复。每次 update 后必须重打 onebot 补丁。
+3. **更新后 gateway 平台失联**：onebot 插件 import 失败 → 注册失败 → "No messaging platforms enabled"，QQ 全断。恢复后必须验证日志出现 `onebot connected, 1 platform(s) running`。
+4. **一键脚本（推荐直接跑）**：`~/AppData/Local/hermes/hermes/scripts/hermes_safe_update.py`——停守护 → 更新 → 打 onebot 补丁 → 外部重启 gateway → 验证连接 → 恢复守护，全程幂等，失败敲 .events 铃铛，任何退出路径 finally 恢复。下次更新别手搓。
 
 ## 回滚（万一翻车）
 

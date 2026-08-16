@@ -1,8 +1,8 @@
-> 创建: 2026-07-24 | 更新: 2026-08-12 | 类型: 索引
+> 创建: 2026-07-24 | 更新: 2026-08-16 | 类型: 索引
 
 # Playbook Index
 
-> 总文件: 18 | ~/.claude/rules: 4 | 更新时间: 2026-08-12
+> 总文件: 20 | ~/.claude/rules: 4 | 更新时间: 2026-08-16
 
 ## 保鲜规则（2026-08-10 立）
 - 每个 playbook 文件头部带 `更新:` 日期
@@ -23,6 +23,7 @@
 | 五层记忆、注入精简、Lost in the Middle、MemGPT | memory-core-principles.md | 记忆核心设计原则 |
 | PCK、卡牌图、16字节对齐、STS2、义眼验收 | sts2-card-pipeline.md | 泯灭之塔卡牌图改造全链路 |
 | gateway重启、onebot、崩溃排查、运维 | hermes-gateway-ops.md | Gateway运维手册（三步重启） |
+| gateway假活、卡死、锁超时、守护、外部重启 | gateway-hang-fix.md | Gateway假活卡死排查与加固（10s超时+守护+外部通道） |
 | 更新、升级、补丁、stash、重打补丁、回滚 | hermes-update-sop.md | Hermes更新避坑SOP（等tag→全停→备份→stash→更新→重打→验证） |
 | 记忆搭建、五层结构、hook、cron、归档 | memory-system-build.md | 记忆系统搭建流程 |
 | 团队、角色、sub-agent、伊莉丝、HARD RULE | agent-team-setup.md | AI团队搭建（五角色） |
