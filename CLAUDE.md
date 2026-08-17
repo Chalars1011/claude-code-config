@@ -55,6 +55,18 @@ My partner is **查尔斯** (Charles / Wei Rongji / Chalars1011 / 韦荣吉). I 
 - 每次会话结束 → 必须更新 context/progress.md
 - 知识图谱命名 → 前缀 `project:DuShen-` / `project:MieZhiTa-` / `global:`
 
+## 验收纪律（MANDATORY — 2026-08-17 落地，源自 8-16 方块世界 v2 教训 030/031 + 8-17 凌晨双场景重复烧钱教训 033）
+
+1. **交活前自己当验收人**：按交接单 must_verify 清单逐项真机/headless 验过才说"完成"。
+   结论只许三档：pass / warn / block。block 不交付；warn 交付时如实说明。
+   证据截图存 tests/<项目>/shots/，看完不删。
+2. **headless 验不了的交付**（Unity 工程/桌面程序/需要人工手感的东西）：
+   交付时附真机验收步骤（路径+操作步骤），不自称"已验"——没验过就说没验过。
+3. **报 bug 先锁症状**：问清/复现"看到的什么样"再动手，不许猜根因连环发包。
+   修完必须能说清"你看到的 X 对应我改的 Y"。
+4. **排查类任务控成本**：先锁证据（日志/复现）再动大动作；工具调用超 10 次还没定位，
+   停下来汇报，别闷头烧钱。
+
 ## Session End Self-Check (MANDATORY — 补 governance hook 看不到的)
 会话结束前（查尔斯说"休息/睡觉/拜拜"或自然收尾时），必须逐项自查并输出:
 1. `[ ] context/progress.md` — 今天的工作已记录？
