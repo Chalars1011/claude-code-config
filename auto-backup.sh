@@ -16,7 +16,8 @@ cd "$HOME/.claude" || exit 1
 if ! git diff --quiet || ! git diff --cached --quiet; then
   git add CLAUDE.md playbook/ rules/ skills/ agents/ .mcp.json mcp-memory.json governance-check.sh *.md
   git commit -m "auto-backup: $(date '+%Y-%m-%d %H:%M')"
-  git push origin HEAD:master --quiet 2>/dev/null || notify_backup_fail "~/.claude 配置仓"
+  # 自动闭环（2026-08-16 查尔斯拍板）：失败延迟 120s 自动重试一次，还不行才敲铃铛
+  git push origin HEAD:master --quiet 2>/dev/null || { sleep 120; git push origin HEAD:master --quiet 2>/dev/null || notify_backup_fail "~/.claude 配置仓"; }
   echo "✅ ~/.claude/ backed up to GitHub"
 else
   echo "⏭  ~/.claude/ no changes"
@@ -47,7 +48,7 @@ if [ -d "$CORE_DIR" ]; then
     if ! git diff --quiet || ! git diff --cached --quiet; then
       git add -A
       git commit -m "memory-sync: $(date '+%Y-%m-%d %H:%M')" --quiet
-      git push origin HEAD:main --quiet 2>/dev/null || notify_backup_fail "记忆核心 Aurelia_mem"
+      git push origin HEAD:main --quiet 2>/dev/null || { sleep 120; git push origin HEAD:main --quiet 2>/dev/null || notify_backup_fail "记忆核心 Aurelia_mem"; }
       echo "✅ 记忆核心已同步到 GitHub (Aurelia_mem)"
     else
       echo "⏭ 记忆核心无变化"
@@ -88,7 +89,7 @@ if [ -d "$QM/.git" ]; then
   if ! git diff --quiet || ! git diff --cached --quiet; then
     git add -A
     git commit -m "memory-sync: $(date '+%Y-%m-%d %H:%M')" --quiet
-    git push origin HEAD:main --quiet 2>/dev/null || notify_backup_fail "QQ_memory"
+    git push origin HEAD:main --quiet 2>/dev/null || { sleep 120; git push origin HEAD:main --quiet 2>/dev/null || notify_backup_fail "QQ_memory"; }
     echo "✅ QQ记忆已同步到 GitHub (QQ_memory)"
   else
     echo "⏭ QQ记忆无变化"
@@ -105,7 +106,7 @@ if [ -d "$CORE_REPO/.git" ]; then
   if ! git diff --quiet || ! git diff --cached --quiet; then
     git add -A
     git commit -m "persona-sync: $(date '+%Y-%m-%d %H:%M')" --quiet
-    git push origin HEAD:main --quiet 2>/dev/null || notify_backup_fail "人格/经验 Aurelia 仓"
+    git push origin HEAD:main --quiet 2>/dev/null || { sleep 120; git push origin HEAD:main --quiet 2>/dev/null || notify_backup_fail "人格/经验 Aurelia 仓"; }
     echo "✅ 人格/经验已同步到 GitHub (Aurelia)"
   fi
 fi
